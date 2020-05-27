@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Михаил Толич](https://up.htmlacademy.ru/javascript/20/user/205777).
-* Наставник: `Неизвестно`.
+* Наставник: `Талифа Аушева`.
 
 ---
 
