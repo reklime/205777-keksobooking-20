@@ -22,14 +22,14 @@ var getRandomNum = function (min, max) {
   return num;
 };
 
-var findOneRandomEl = function (elem) {
-  return elem[getRandomNum(0, elem.length)];
+var findRandomEl = function (element) {
+  return element[getRandomNum(0, element.length)];
 };
 
 var getRandomArr = function (arr) {
   var el = [];
   for (var i = 0; i < getRandomNum(0, arr.length) + 1; i++) {
-    var feature = findOneRandomEl(arr);
+    var feature = findRandomEl(arr);
     if (el.indexOf(feature) === -1) {
       el.push(feature);
     }
@@ -37,21 +37,35 @@ var getRandomArr = function (arr) {
   return el;
 };
 
+var getAddress = function (locationX, locationY) {
+  return (locationX + ', ' + locationY);
+};
+
+var getAvatar = function (num) {
+  return 'img/avatars/user0' + (num + 1) + '.png';
+};
+
 var createData = function (iterations) {
   var generatedData = [];
 
   for (var i = 0; i < iterations; i++) {
     //  Сформируем локацию на карту
+
     var locationX = getRandomNum(0, MAP.clientWidth);
     var locationY = getRandomNum(MIN_Y, MAX_Y);
 
+    var location = {
+      'x': locationX,
+      'y': locationY
+    };
+
     generatedData[i] = {
       'author': {
-        'avatar': 'img/avatars/user0' + (i + 1) + '.png'
+        'avatar': getAvatar(i)
       },
       'offer': {
         'title': 'Заголовок',
-        'address': locationX + ', ' + locationY,
+        'address': getAddress(locationX, locationY),
         'price': getRandomNum(100, 10000),
         'type': TYPES[getRandomNum(0, TYPES.length)],
         'rooms': getRandomNum(1, 5),
@@ -62,10 +76,7 @@ var createData = function (iterations) {
         'description': DESCRIPTION[getRandomNum(0, DESCRIPTION.length)],
         'photos': getRandomArr(PHOTOS)
       },
-      'location': {
-        'x': locationX,
-        'y': locationY
-      }
+      'location': location
     };
   }
   return generatedData;
@@ -76,7 +87,8 @@ var makePin = function (ad) {
   var avatar = pin.querySelector('img');
   var xOffset = ad.location.x - PIN_WIDTH / 2;
   var yOffset = ad.location.y - PIN_HEIGHT;
-  pin.setAttribute('style', 'left: ' + xOffset + 'px; top: ' + yOffset + 'px;');
+  pin.style.left = xOffset + 'px';
+  pin.style.top = yOffset + 'px';
   avatar.setAttribute('src', ad.author.avatar);
   avatar.setAttribute('alt', ad.offer.title);
   return pin;
