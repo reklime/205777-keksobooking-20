@@ -89,8 +89,8 @@ var makePin = function (ad) {
   var yOffset = ad.location.y - PIN_HEIGHT;
   pin.style.left = xOffset + 'px';
   pin.style.top = yOffset + 'px';
-  avatar.setAttribute('src', ad.author.avatar);
-  avatar.setAttribute('alt', ad.offer.title);
+  avatar.src = ad.author.avatar;
+  avatar.alt = ad.offer.title;
   return pin;
 };
 
